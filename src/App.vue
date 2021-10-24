@@ -1,19 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <ShoppingCard
+      v-for="(item, i) in CardInfoList"
+      :key="i"
+      :product="item"
+      @addProduct="addProduct"
+      :basket="basket"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ShoppingCard from "./components/ShoppingCard.vue";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    ShoppingCard,
+  },
+  data() {
+    return {
+      CardInfoList: [
+        {
+          category: "Sport Shoes",
+          title: "Nike Epic React ",
+          images: {
+            burlywood: require("./assets/1-shoes.png"),
+            blue: require("./assets/blue-shoes.png"),
+            red: require("./assets/red-shoes.png"),
+            black: require("./assets/black-shoes.png"),
+          },
+          colors: ["burlywood", "blue", "red", "black"],
+          price: 100,
+          sizes: [40, 41, 43, 44, 45],
+          quantity: 1,
+        },
+      ],
+      basket: [],
+    };
+  },
+  methods: {
+    addProduct(e) {
+      this.basket.unshift(e);
+    },
+  },
+};
 </script>
 
 <style>
